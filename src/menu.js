@@ -4,21 +4,19 @@ import DrPepper from './dr_pepper.jpeg';
 
 
 const menu = () => {
-  const content = document.querySelector('div#content');
-
   function createMenuItemDiv(foodObject) {
     const menuItemDiv = document.createElement('div');
     menuItemDiv.classList.add('menuItem');
 
+    const elementTypes = {
+      name: 'h3',
+      price: 'h3',
+      description: 'p',
+      picture: 'img'
+    }
+
     for (const key in foodObject) {
-      const element = document.createElement(
-        ({
-          name: 'h3',
-          price: 'h3',
-          description: 'p',
-          picture: 'img'
-        })[key]
-      )
+      const element = document.createElement(elementTypes[key])
       if (key !== 'picture') {
         element.classList.add(key)
         element.innerText = foodObject[key];
@@ -37,7 +35,13 @@ const menu = () => {
     { name: 'Dr. Pepper', price: 4, description: 'Bottle of Dr. Pepper', picture: DrPepper }
   ]
 
-  beverages.forEach((beverage) => content.appendChild(createMenuItemDiv(beverage)));
+  function renderMenuItems(items) {
+    const content = document.querySelector('div#content');
+    items.forEach((item) => content.appendChild(createMenuItemDiv(item)));
+  }
+
+  renderMenuItems(beverages);
+
 }
 
 export default menu
